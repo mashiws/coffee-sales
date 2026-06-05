@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Coffee Sales</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">☕ Coffee Sales</div>
+    <nav>
+      <button class="tab active" data-tab="sales">Продажи</button>
+      <button class="tab" data-tab="reports">Отчёты</button>
+      <button class="tab" data-tab="dicts">Справочники</button>
+      <button class="tab" data-tab="backups">Резервные копии</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="sales" class="page active">
+      <div class="cards">
+        <div class="card"><span>☕ Чашек</span><b id="kpiCups">0</b></div>
+        <div class="card"><span>💰 Выручка</span><b id="kpiRevenue">0</b></div>
+        <div class="card"><span>🥤 Популярный</span><b id="kpiLeader">Нет данных</b></div>
+      </div>
+
+      <div class="panel">
+        <label>Дата <input type="date" id="saleDate"></label>
+      </div>
+
+      <div class="panel">
+        <h2>Новая продажа</h2>
+        <div class="grid">
+          <label>Напиток <select id="saleDrink"></select></label>
+          <label>Объём <select id="saleCup"></select></label>
+          <label>Количество <input id="saleQty" type="number" min="1"></label>
+          <button id="addSale">Добавить продажу</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="tools">
+          <input id="searchSale" placeholder="Поиск по напитку">
+          <select id="filterDrink"><option value="">Все напитки</option></select>
+          <select id="filterCup"><option value="">Все объёмы</option></select>
+          <button id="resetFilters">Сбросить</button>
+        </div>
+        <table>
+          <thead><tr><th>Время</th><th>Напиток</th><th>Объём</th><th>Кол-во</th><th>Цена</th><th>Сумма</th><th>Действия</th></tr></thead>
+          <tbody id="salesTable"></tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <h2>Корзина</h2>
+        <table>
+          <thead><tr><th>Время</th><th>Напиток</th><th>Объём</th><th>Кол-во</th><th>Действия</th></tr></thead>
+          <tbody id="trashTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="reports" class="page">
+      <div class="panel">
+        <h2>Суточный отчёт</h2>
+        <label>Дата <input type="date" id="reportDate"></label>
+        <button id="loadReport">Сформировать</button>
+        <button id="xlsxReport">Excel</button>
+        <button id="pdfReport">PDF</button>
+      </div>
+      <div class="cards">
+        <div class="card"><span>☕ Продано</span><b id="repCups">0</b></div>
+        <div class="card"><span>💰 Выручка</span><b id="repRevenue">0</b></div>
+        <div class="card"><span>🥤 Лидер</span><b id="repLeader">Нет данных</b></div>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Напиток</th><th>Объём</th><th>Количество</th><th>Цена</th><th>Сумма</th></tr></thead>
+          <tbody id="reportTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="dicts" class="page">
+      <div class="panel">
+        <label>Справочник
+          <select id="dictType">
+            <option value="drinks">Напитки</option>
+            <option value="cups">Чашки</option>
+          </select>
+        </label>
+      </div>
+      <div class="panel" id="drinkPanel">
+        <h2>Напитки</h2>
+        <div class="grid">
+          <input id="drinkName" placeholder="Название">
+          <input id="drinkPrice" type="number" min="0.01" step="0.01" placeholder="Цена">
+          <button id="saveDrink">Добавить</button>
+        </div>
+        <table><thead><tr><th>Название</th><th>Цена</th><th>Действия</th></tr></thead><tbody id="drinksTable"></tbody></table>
+      </div>
+      <div class="panel hidden" id="cupPanel">
+        <h2>Чашки</h2>
+        <div class="grid">
+          <input id="cupName" placeholder="Например 300 мл">
+          <button id="saveCup">Добавить</button>
+        </div>
+        <table><thead><tr><th>Объём</th><th>Действия</th></tr></thead><tbody id="cupsTable"></tbody></table>
+      </div>
+    </section>
+
+    <section id="backups" class="page">
+      <div class="cards">
+        <div class="card big"><h2>⬇ Экспорт данных</h2><button id="exportBackup">Создать резервную копию</button></div>
+        <div class="card big"><h2>⬆ Импорт данных</h2><input type="file" id="backupFile" accept=".zip"><button id="importBackup">Импортировать</button></div>
+      </div>
+      <pre id="backupResult"></pre>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="modal">
+    <div class="modal-box">
+      <h2 id="modalTitle">Редактирование</h2>
+      <div id="modalBody"></div>
+      <div class="modal-actions">
+        <button onclick="closeModal()">Отмена</button>
+        <button id="modalSave">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+<script src="/app.js"></script>
+</body>
+</html>
