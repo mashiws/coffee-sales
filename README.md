@@ -79,3 +79,17 @@ https://coffee-sales.onrender.com
 
 Сейчас используется SQLite. Для тестового запуска это подходит.
 Для настоящей постоянной рабочей версии лучше перейти на PostgreSQL, потому что на бесплатных хостингах локальный файл базы может не сохраняться надёжно после перезапуска сервера.
+
+---
+
+## PostgreSQL версия
+
+Эта версия использует PostgreSQL на Render, если задана переменная `DATABASE_URL`.
+Если `DATABASE_URL` нет, локально используется SQLite.
+
+На Render нужно:
+1. Создать PostgreSQL базу данных.
+2. Скопировать `Internal Database URL`.
+3. В Web Service открыть `Environment`.
+4. Добавить переменную `DATABASE_URL` со значением Internal Database URL.
+5. Сделать `Manual Deploy`.
